@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+		
+    <script>
+        window.onload = function() {
+            document.getElementById('barkodListesiForm:onloadButton').onclick();
+        }
+    </script>
+</h:head>
+<body>
+	<h:form id="barkodListesiForm">
+		<p:messages id="messages" showDetail="true" closable="true" />
+		<h:panelGrid id="headerPageGrid" columns="3" style="margin:auto;margin-bottom:4%;">
+			<p:commandButton value="Kullanici" action="#{barkodListesiBean.kullaniciPage}"/>
+			<p:commandButton value="Kullanici Listesi" action="#{barkodListesiBean.kullaniciListesiPage}"/>
+			<p:commandButton value="Barkod Listesi" action="#{barkodListesiBean.barkodListesiPage}"/>
+		</h:panelGrid>
+		
+		<p:panelGrid id="filterPanelGrid" columns="3" style="margin:auto;margin-bottom:2%;">
+			<p:outputLabel for="kullaniciCmb" value="Kullanıcı : " />
+			<p:selectOneMenu id="kullaniciCmb" value="#{barkodListesiBean.kullaniciId}">
+				<f:selectItem itemLabel="" itemValue="0" />
+				<f:selectItems value="#{barkodListesiBean.kullanicilar}" var="kullaniciVar" itemLabel="#{kullaniciVar.kullaniciAdi}" itemValue="#{kullaniciVar.id}"/>
+			</p:selectOneMenu>
+
+			<p:commandButton action="#{barkodListesiBean.filterBarkodlar}" process="@form" update="@form" value="Filtrele" icon="ui-icon-reply" />
+		</p:panelGrid>
+		
+		<p:dataTable var="barkodVar" value="#{barkodListesiBean.barkodlar}">
+			<p:column headerText="Id">
+				<h:outputText value="#{barkodVar.id}" />
+			</p:column>
+
+			<p:column headerText="Kullanıcı Adı">
+				<h:outputText value="#{barkodVar.kullaniciAdi}" />
+			</p:column>
+
+			<p:column headerText="Barkod">
+				<h:outputText value="#{barkodVar.barkod}" />
+			</p:column>
+		</p:dataTable>
+		<p:commandButton id="onloadButton" style="display:none" actionListener="#{barkodListesiBean.onload}" process="@form" update="@form"></p:commandButton>
+	</h:form>
+</body>
+</html>

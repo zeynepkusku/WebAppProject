@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<h:body>
+	<h:form id="LoginForm">
+		<p:messages id="messages" showDetail="true" closable="true" />
+		<p:panelGrid id="LoginPanelGrid" columns="2" style="margin:auto;margin-top:10%">
+			<f:facet name="header">Giriş Formu</f:facet>
+			
+			<p:outputLabel for="kullaniciAdi" value="Kullanıcı Adı: *"/>
+			<p:inputText id="kullaniciAdi" value="#{loginBean.kullanici.kullaniciAdi}"/>
+			
+			<p:outputLabel for="parola" value="Şifre: *"/>
+			<p:password id="parola" value="#{loginBean.kullanici.parola}"/>
+			
+			<f:facet name="footer">
+				<p:commandButton action="#{loginBean.login}" update="@form" value="Giriş" icon="ui-icon-check"/>
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

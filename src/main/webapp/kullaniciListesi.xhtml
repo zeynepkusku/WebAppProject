@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+		
+    <script>
+        window.onload = function() {
+            document.getElementById('kullaniciListesiForm:onloadButton').onclick();
+        }
+    </script>
+</h:head>
+<body>
+	<h:form id="kullaniciListesiForm">
+		<p:messages id="messages" showDetail="true" closable="true" />
+		<h:panelGrid id="headerPageGrid" columns="3" style="margin:auto;margin-bottom:4%;">
+			<p:commandButton value="Kullanici" action="#{kullaniciListesiBean.kullaniciPage}"/>
+			<p:commandButton value="Kullanici Listesi" action="#{kullaniciListesiBean.kullaniciListesiPage}"/>
+			<p:commandButton value="Barkod Listesi" action="#{kullaniciListesiBean.barkodListesiPage}"/>
+		</h:panelGrid>
+		
+		<p:dataTable var="kullanici" value="#{kullaniciListesiBean.kullanicilar}" editable="true">
+ 			<p:ajax event="rowEdit" listener="#{kullaniciListesiBean.onRowEdit}" update=":kullaniciListesiForm:messages" />
+		
+			<p:column headerText="Id">
+				<h:outputText value="#{kullanici.id}" />
+			</p:column>
+			
+			<p:column headerText="Kullanıcı Adı">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{kullanici.kullaniciAdi}" /></f:facet>
+	                <f:facet name="input"><p:inputText value="#{kullanici.kullaniciAdi}"  label="Kullanıcı Adı"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Parola">
+			<p:cellEditor>
+				<h:outputText value="#{kullanici.parola}" />
+				<f:facet name="output"><h:outputText value="#{kullanici.parola}" /></f:facet>
+	                <f:facet name="input"><p:inputText value="#{kullanici.parola}"  label="Parola"/></f:facet>
+			</p:cellEditor>
+			</p:column>
+
+			<p:column style="text-align:center;">
+			<p:rowEditor />
+				<p:commandButton icon="ui-icon-trash"
+					actionListener="#{kullaniciListesiBean.delete(kullanici)}" process="@form"
+					update="@form"></p:commandButton>
+			</p:column>
+
+		</p:dataTable>
+		<p:commandButton id="onloadButton" style="display:none" actionListener="#{kullaniciListesiBean.onload}" process="@form" update="@form"></p:commandButton>
+	</h:form>
+</body>
+</html>

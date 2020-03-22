@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+</h:head>
+<body>
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true" />
+		<h:panelGrid id="headerPageGrid" columns="3" style="margin:auto;margin-bottom:4%;">
+			<p:commandButton value="Kullanici" action="#{kullaniciBean.kullaniciPage}"/>
+			<p:commandButton value="Kullanici Listesi" action="#{kullaniciBean.kullaniciListesiPage}"/>
+			<p:commandButton value="Barkod Listesi" action="#{kullaniciBean.barkodListesiPage}"/>
+		</h:panelGrid>
+		
+		<p:panelGrid id="kullaniKayitPanelGrid" columns="5" style="margin:auto;margin-bottom:2%;">
+			<p:outputLabel for="kullaniciAdi" value="Kullanıcı Adı: " />
+			<p:inputText id="kullaniciAdi"
+				value="#{kullaniciBean.kullanici.kullaniciAdi}" />
+
+			<p:outputLabel for="parola" value="Şifre: " />
+			<p:inputText id="parola" value="#{kullaniciBean.kullanici.parola}" />
+
+			<p:commandButton action="#{kullaniciBean.save}" update="@form"
+				value="Kaydet" icon="ui-icon-check" />
+		</p:panelGrid>
+	</h:form>
+</body>
+</html>
